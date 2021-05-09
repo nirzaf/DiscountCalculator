@@ -19,29 +19,19 @@ namespace DiscountCalculator
 
         private void BtnCalculate_Click(object sender, EventArgs e)
         {
-            double Qty = GetQuantity();
-            double Bonus = GetBonus();
-            double Cost = GetCost();
-        }
+            double Qty = Convert.ToDouble(TxtQuantity.Text.Trim());
+            double Bonus = Convert.ToDouble(TxtBonus.Text.Trim());
+            double Cost = Convert.ToDouble(TxtCost.Text.Trim());
 
-        private double GetQuantity()
-        {
-            return ConToDouble(TxtQuantity.Text.Trim());
-        }
+            double TotalCostWithoutBonus = Qty * Cost;
+            double TotalQtyWithBonus = Bonus + Qty;
+            double TotalCostWithBonus = Cost * TotalQtyWithBonus;
+            double CostPerPeiceWithBonus = TotalCostWithoutBonus / TotalQtyWithBonus;
+            double DiscountPerPiece = Cost - CostPerPeiceWithBonus;
+            double DiscountPercentagePerPiece = DiscountPerPiece / Cost * 100;
 
-        private double GetBonus()
-        {
-            return ConToDouble(TxtBonus.Text.Trim());
-        }
+            TxtBonusPercentage.Text = DiscountPercentagePerPiece.ToString();
 
-        private double GetCost()
-        {
-            return ConToDouble(TxtCost.Text.Trim());
-        }
-        private double ConToDouble(string Value)
-        {
-            double Double = Convert.ToDouble(Value);
-            return Double;
         }
     }
 }
